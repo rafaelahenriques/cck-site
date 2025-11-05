@@ -7,7 +7,7 @@ const team = await getCollection('team');
   <div class="picwrap">
     <div class="profilepic">
       <img
-        alt=""
+        alt={team.find(member => member.id === '##ID##').data.name}
         src={team.find(member => member.id === '##ID##').data.pic}
         width={300}
         height={300}
