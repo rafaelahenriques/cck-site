@@ -1,23 +1,42 @@
 ---
 import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+// 1. Fetch and sort the news collection (newest first)
+let allNews = await getCollection("news");
+allNews.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// We must abandon the .render() approach because your project's configuration (glob loader)
+// prevents it from working. We will now assume the content is available in item.body
+// and render it using a simple component.
 ---
 
 <Base title="News">
   <div class="container">
     <h2><span>News</span></h2>
     <p class="code">The third digit of the code is 3</p>
+
     <ul>
-      <li>
-        <article>
-          <h3>##TITLE##</h3>
-          <time datetime={##DATE##}>
-            {##DATE##}
-          </time>
-          <div class="md">
-            ##CONTENT##
-          </div>
-        </article>
-      </li>
+      {/* 2. Loop over the collected items directly */}
+      {
+        allNews.map((item) => (
+          <li>
+            <article>
+              {/* Title and Date remain the same */}
+              <h3>{item.data.title}</h3>
+
+              <time datetime={item.data.date.toISOString()}>
+                {item.data.date.toDateString()}
+              </time>
+
+              <div class="md">
+                {/* 3. FINAL FIX: Render the markdown content stored in item.body */}
+                <Fragment set:html={item.body} />
+              </div>
+            </article>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </Base>
