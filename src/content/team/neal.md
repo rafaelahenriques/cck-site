@@ -1,7 +1,7 @@
 ---
 name: Neal Willems
 function: Creative Technologist
-pic: img/neal.jpeg
+pic: ./img/neal.jpeg
 bio: Creative technologist and educator who explores the intersection of art, technology, and human creativity
 ---
 
