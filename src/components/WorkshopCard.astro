@@ -1,31 +1,42 @@
 ---
 import ArrowLink from "./ArrowLink.astro";
 import { getCollection } from "astro:content";
-const allWorkshops = await getCollection("workshops");
 
+const allWorkshops = await getCollection("workshops");
 const { theme = "grey" } = Astro.props;
 ---
 
 <article class={`workshop-card workshop-card--${theme}`}>
-  
+  <>
     {
-  allWorkshops.map((workshop) => (
-  <div>
+      allWorkshops.map((workshop) => (
+        <div>
+          <h3>
+            <span>{workshop.data.title}</span>
+          </h3>
 
-      <h3><span></span>{workshop.data.title}</span></h3>
-       <ArrowLink
-        class="link"
-        href={`/workshops/${workshop.id}`}
-        title="Learn more"
-        />
+          <ArrowLink
+            class="link"
+            href={`/workshops/${workshop.id}`}
+            title="Learn more"
+          />
 
-      <img
-      class="image" src={workshop.data.image.src} alt={workshop.data.title}/>
-
-  ))
-}
-
- 
+          {workshop.data.image && (
+            <img
+              class="image"
+              src={
+                typeof workshop.data.image === "string"
+                  ? workshop.data.image
+                  : workshop.data.image.src
+              }
+              alt={workshop.data.title}
+              loading="lazy"
+            />
+          )}
+        </div>
+      ))
+    }
+  </>
 </article>
 
 <style>
@@ -34,11 +45,9 @@ const { theme = "grey" } = Astro.props;
     --arrow-color-black: var(--color-text);
     --arrow-color-text: var(--color-text);
     background-color: var(--color-grey);
-
     border: solid 2px var(--color-text);
     border-bottom-width: 8px;
     border-radius: var(--br-l);
-
     padding: var(--sp-xl);
   }
 
@@ -54,19 +63,13 @@ const { theme = "grey" } = Astro.props;
 
   h3 {
     grid-area: title;
-    justify-self: start;
-    align-self: start;
     text-align: left;
   }
-
   .link {
     grid-area: link;
   }
-
   .image {
     grid-area: img;
-    align-self: center;
-    justify-self: end;
     height: 15rem;
     width: auto;
     aspect-ratio: 1;
@@ -74,16 +77,13 @@ const { theme = "grey" } = Astro.props;
 
   @media (min-width: 30rem) {
     div {
-      grid-template-areas:
-        "title img"
-        "link img";
+      grid-template-areas: "title img" "link img";
     }
   }
 
   .workshop-card--green {
     background-color: var(--color-primary);
   }
-
   .workshop-card--green h3 span {
     background-color: var(--color-white);
   }
@@ -94,7 +94,6 @@ const { theme = "grey" } = Astro.props;
     --arrow-color-text: var(--color-white);
     background-color: var(--color-black);
   }
-
   .workshop-card--black h3 span {
     background-color: white;
   }
