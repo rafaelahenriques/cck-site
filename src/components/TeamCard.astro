@@ -1,5 +1,6 @@
 ---
-
+import { getCollection } from 'astro:content';
+const team = await getCollection('team');
 ---
 
 <article>
@@ -7,16 +8,16 @@
     <div class="profilepic">
       <img
         alt=""
-        src={##PIC##}
+        src={team.find(member => member.id === '##ID##').data.pic}
         width={300}
         height={300}
-        alt={`Profile pic of ${##NAME##}`}
+        alt={`Profile pic of ${team.find(member => member.id === '##ID##').data.name}`}
       />
     </div>
   </div>
-  <p class="name"><a href={`/team/${##ID##}`}>{##NAME##}</a></p>
-  <p class="function">{##FUNCTION##}</p>
-  <p class="bio">{##BIO##}</p>
+  <p class="name"><a href={`/team/${team.find(member=> member.id ==='##ID##').data.id}`}>{team.find(member => member.id === '##ID##').data.name}</a></p>
+  <p class="function">{team.find(member => member.id === '##ID##').data.function}</p>
+  <p class="bio">{team.find(member => member.id === '##ID##').data.bio}</p>
 </article>
 
 <style>
