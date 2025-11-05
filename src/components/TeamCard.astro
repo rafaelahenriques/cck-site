@@ -15,7 +15,7 @@ const team = await getCollection('team');
         />
       </div>
     </div>
-    <p class="name"><a href={`/team/${member.data.id}`}>{member.data.name}</a></p>
+    <p class="name"><a href={`/team/${member.data.name}`}>{member.data.name}</a></p>
     <p class="function">{member.data.function}</p>
     <p class="bio">{member.data.bio}</p>
   </article>
