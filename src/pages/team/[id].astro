@@ -8,6 +8,7 @@ const { id } = Astro.params;
 const member = team.find((m) => m.id === id);
 
 export async function getStaticPaths() {
+  const team = await getCollection("team");
     return team.map((member) => ({ params: { id: member.id } }));
 
 }
