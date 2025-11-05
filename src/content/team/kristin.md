@@ -1,7 +1,7 @@
 ---
 name: Kristin Mertens
 function: Computational designer.
-pic: img/kristin.jpeg
+pic: ./img/kristin.jpeg
 bio: computational designer who fuses technology and creativity to inspire innovative design thinking.
 ---
 
