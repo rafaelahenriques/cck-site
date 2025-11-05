@@ -2,13 +2,8 @@
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 
-// 1. Fetch and sort the news collection (newest first)
 let allNews = await getCollection("news");
 allNews.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-// We must abandon the .render() approach because your project's configuration (glob loader)
-// prevents it from working. We will now assume the content is available in item.body
-// and render it using a simple component.
 ---
 
 <Base title="News">
