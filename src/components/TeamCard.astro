@@ -8,7 +8,7 @@ const team = await getCollection('team');
       <div class="profilepic">
         <img
           alt={member.data.name}
-          src={member.data.pic}
+          src={member.data.pic.src}
           width={300}
           height={300}
           alt={`Profile pic of ${member.data.name}`}
