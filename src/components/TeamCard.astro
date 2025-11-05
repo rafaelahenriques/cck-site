@@ -2,23 +2,24 @@
 import { getCollection } from 'astro:content';
 const team = await getCollection('team');
 ---
-
-<article>
-  <div class="picwrap">
-    <div class="profilepic">
-      <img
-        alt={team.find(member => member.id === '##ID##').data.name}
-        src={team.find(member => member.id === '##ID##').data.pic}
-        width={300}
-        height={300}
-        alt={`Profile pic of ${team.find(member => member.id === '##ID##').data.name}`}
-      />
+{team.map((member) => (
+  <article>
+    <div class="picwrap">
+      <div class="profilepic">
+        <img
+          alt={member.data.name}
+          src={member.data.pic}
+          width={300}
+          height={300}
+          alt={`Profile pic of ${member.data.name}`}
+        />
+      </div>
     </div>
-  </div>
-  <p class="name"><a href={`/team/${team.find(member=> member.id ==='##ID##').data.id}`}>{team.find(member => member.id === '##ID##').data.name}</a></p>
-  <p class="function">{team.find(member => member.id === '##ID##').data.function}</p>
-  <p class="bio">{team.find(member => member.id === '##ID##').data.bio}</p>
-</article>
+    <p class="name"><a href={`/team/${member.data.id}`}>{member.data.name}</a></p>
+    <p class="function">{member.data.function}</p>
+    <p class="bio">{member.data.bio}</p>
+  </article>
+))}
 
 <style>
   article {
